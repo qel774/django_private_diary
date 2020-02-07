@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'diary.apps.DiaryConfig',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'private_diary.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -82,7 +82,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -121,3 +120,42 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#ロギング
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers':False,
+
+    #ロギング
+    'loggers':{
+        #Djangoが利用するロガー
+        'django':{
+            'handlers':['console'],
+            'level':'INFO',
+        },
+        #diaryアプリケーションが利用するロガー
+        'diary':{
+            'handlers':['console'],
+            'level':'DEBUG',
+        },
+    },
+    #ハンドラの設定
+    'handlers':{
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter':'dev'
+        },
+    },
+    #フォーマッタの設定
+    'formatters':{
+        'dev':{
+            'format':'\t'.join([
+                '%(asctime)s',
+                '[%(levelname)s]',
+                '%(pathname)s(Lime:%(lineno)d)',
+                '%(message)s'
+            ])
+        },
+    }
+}
