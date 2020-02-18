@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'diary.apps.DiaryConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -177,3 +178,7 @@ MESSAGE_TAGS = {
     messages.SUCCESS:'alert alert-success',
     messages.INFO:'alert alert-info',
 }
+
+#カスタムユーザモデル
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
